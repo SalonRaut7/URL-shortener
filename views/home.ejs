@@ -1,0 +1,123 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Home Page</title>
+</head>
+
+<body>
+    <h1>URL Shortener</h1>
+    
+    <% if (locals.id) { %>
+        <p>URL Generated: <a href="http://localhost:3000/url/<%= id %>">https://localhost:3000/url/<%= id %></a></p>
+    <% } %>
+
+    <div>
+        <form action="/url" method="post">
+            <label>Enter your Original URL</label>
+            <input type="text" name="url" placeholder="https://example.com" required>
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+
+    <div>
+        <% if (locals.urls) { %>
+            <table>
+                <thead>
+                    <th>S. No</th>
+                    <th>ShortID</th>
+                    <th>Redirect</th>
+                    <th>Clicks</th>
+                </thead>
+                <tbody>
+                    <% urls.forEach((url,index) => { %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= url.shortId %></td>
+                            <td><%= url.redirectURL %></td>
+                            <td><%= url.visitHistory.length %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Home Page</title>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <div class="container mx-auto max-w-4xl px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-8">URL Shortener</h1>
+        
+        <% if (locals.id) { %>
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+                <p class="text-sm">URL Generated: 
+                    <a href="http://localhost:3000/url/<%= id %>" 
+                       class="text-blue-600 hover:text-blue-800 break-all">
+                        https://localhost:3000/url/<%= id %>
+                    </a>
+                </p>
+            </div>
+        <% } %>
+
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <form action="/url" method="post" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Enter your Original URL</label>
+                    <input type="text" name="url" placeholder="https://example.com" required
+                        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button type="submit" 
+                    class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">
+                    Generate Short URL
+                </button>
+            </form>
+        </div>
+
+        <% if (locals.urls) { %>
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <table class="w-full border-collapse">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">S. No</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">ShortID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Redirect</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">Clicks</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <% urls.forEach((url,index) => { %>
+                            <tr class="hover:bg-gray-50 even:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= index+1 %></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= url.shortId %></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 hover:text-blue-800 max-w-xs overflow-hidden truncate">
+                                    <a href="<%= url.redirectURL %>" target="_blank" class="hover:underline"><%= url.redirectURL %></a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= url.visitHistory.length %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        <% } %>
+    </div>
+</body>
+
+</html>
